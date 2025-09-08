@@ -77,6 +77,20 @@ export async function updateNote(req, res){
 }
 
 
-export function deleteNote(req, res){
-    res.status(200).json({message: "Note deleted successfully!"})
+export async function deleteNote(req, res){
+    // res.status(200).json({message: "Note deleted successfully!"})
+    try{
+        // only need the note id to delete that note        
+        const updatedNote = await Note.findByIdAndDelete(req.params.id)
+        
+        // leave message if note not found
+        if (!updatedNote) return res.status(404).json({message:"Note not found!"})
+        
+        // leave successful message
+        res.status(200).json({message: "Note deleted successfully"})
+
+    }catch(error){
+        console.log("Error in deleteNote controller", error)
+        res.status(500).json({message: "Internal server error"})
+    }
 }
