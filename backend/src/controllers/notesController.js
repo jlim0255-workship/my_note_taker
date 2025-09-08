@@ -22,6 +22,22 @@ export async function getAllNotes(req, res) {
     
 }
 
+// GET A NOTE BY ID
+export async function getNoteById(req, res) {
+    // get id from the URL if there is
+    try{
+        const note = await Note.findById(req.params.id)
+        if (!note) return res.status(404).json({message: "Note not found"})            
+        res.status(200).json(note)
+
+    }catch(error){
+        console.log("Error in getNoteById controller", error)
+        res.status(500).json({message: "Internal server error"})
+
+    }
+
+}
+
 // CREATE NEW NOTE
 export async function createNote(req, res) {
     // res.status(200).send("Note created successfully");
@@ -76,7 +92,7 @@ export async function updateNote(req, res){
     }
 }
 
-
+// DELETE A NOTE BY ID
 export async function deleteNote(req, res){
     // res.status(200).json({message: "Note deleted successfully!"})
     try{
