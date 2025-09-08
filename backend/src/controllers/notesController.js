@@ -7,6 +7,8 @@
 // 2) the normal function way
 import Note from "../models/Note.js"
 
+
+// RETRIEVE ALL NOTES
 export async function getAllNotes(req, res) {
     try{
         const notes = await Note.find()
@@ -20,6 +22,7 @@ export async function getAllNotes(req, res) {
     
 }
 
+// CREATE NEW NOTE
 export async function createNote(req, res) {
     // res.status(200).send("Note created successfully");
     try{
@@ -29,11 +32,13 @@ export async function createNote(req, res) {
 
         const {title, content} = req.body
 
-        // another way of putting content in the newly created note
+        // old way
         // const newNote = new Note({title, content})
         // await newNote.save()
         // res.status(201).json({message:"Note created successfully!"})
-
+        
+        // another way of putting content in the newly created note
+        // with better clarity
         const note = new Note({title, content})
         const savedNote = await note.save()        
         res.status(201).json(savedNote)
@@ -44,7 +49,14 @@ export async function createNote(req, res) {
 }
 
 export function updateNote(req, res){
-    res.status(200).json({message: "Note updated successfully!"})
+    // res.status(200).json({message: "Note updated successfully!"})
+    try{
+        const
+
+
+    }catch(error){
+
+    }
 }
 
 
