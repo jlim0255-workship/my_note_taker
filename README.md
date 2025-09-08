@@ -18,3 +18,5 @@ Introduced the REST API
 - Endpoint (the app.post/get/put/delete, followed with the URL)
 - a combination of URL + HTTP method that lets 
 - the client interact with a specific resource
+
+-REMEMBER TO ADD ".js" in tjhe import statement
