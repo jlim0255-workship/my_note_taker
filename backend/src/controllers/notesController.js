@@ -48,14 +48,31 @@ export async function createNote(req, res) {
     }
 }
 
-export function updateNote(req, res){
+export async function updateNote(req, res){
     // res.status(200).json({message: "Note updated successfully!"})
     try{
-        const
+        // get the updated title and content from the user request
+        // ONLY UPDATE the params passed in (still works if we just pass the title or content)
+        const {title, content} = req.body
 
+        //we called it id because it is id in the put request in notesRoutes.js
+        // update the new title and content, based on the id
+
+        // old way
+        // await Note.findByIdAndUpdate(req.params.id, {title, content})
+
+        // better way
+        const updatedNote = await Note.findByIdAndUpdate(req.params.id, {title, content})
+        
+        // leave message if note not found
+        if (!updatedNote) return res.status(404).json({message:"Note not found!"})
+        
+        // leave successful message
+        res.status(200).json({message: "Note updated successfully"})
 
     }catch(error){
-
+        console.log("Error in updateNote controller", error)
+        res.status(500).json({message: "Internal server error"})
     }
 }
 
