@@ -14,17 +14,13 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 5001
 
-connectDB();
-
 //middleware
-app.use(express.json());
-app.use(rateLimiter)
+app.use(express.json()); //middleware to parse req.body
+app.use(rateLimiter); //middleware to rate limit
+app.use("/api/notes", notesRoutes);// middleware to call controllers in endpoints
 
-app.use("/api/notes", notesRoutes);
-
-
-app.listen(PORT, () => {
+// modified: connect the DB first, then listen to the server
+connectDB().then( () => {app.listen(PORT, () => {
     console.log("server started on PORT:", PORT);
+    })
 })
-
-// 
