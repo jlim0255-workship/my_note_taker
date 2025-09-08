@@ -20,3 +20,15 @@ Introduced the REST API
 - the client interact with a specific resource
 
 -REMEMBER TO ADD ".js" in tjhe import statement
+
+- Middleware
+Function that runs in the middle between the request and the response (ex: user auth, rate limiting)
+
+- Rate Limiting 1:32:23
+Is a way to control how often someone can do something on a website or app:
+
+- how many times they can refresh a page, 
+- make a request to an API, 
+- or try to login (to prevent overloading the server)
+
+- Status code: 429 too many requests
