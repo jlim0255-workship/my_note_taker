@@ -2,7 +2,7 @@ import React from 'react'
 
 const NoteDetailPage = () => {
   return <div>
-      NoteDetailPage
+      <h1>NoteDetailPage</h1>
     </div>
   
 }
