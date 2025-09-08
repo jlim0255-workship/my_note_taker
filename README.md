@@ -32,3 +32,5 @@ Is a way to control how often someone can do something on a website or app:
 - or try to login (to prevent overloading the server)
 
 - Status code: 429 too many requests
+
+Frontend: 1:51:27
