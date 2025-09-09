@@ -36,3 +36,8 @@ Is a way to control how often someone can do something on a website or app:
 Frontend: 1:51:27
 
 -D2 End: 2: 03: 37 -> Homepage front end -> 11:40 pm
+
+-D3 Start
+Homepage
+CORS thing: 2:13
+front end getting stuff from back end
