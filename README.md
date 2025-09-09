@@ -41,3 +41,6 @@ Frontend: 1:51:27
 Homepage
 CORS thing: 2:13
 front end getting stuff from back end
+
+Stop at create page 2:32:15
+Day 2 log out 11:25pm
