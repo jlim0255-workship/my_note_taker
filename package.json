@@ -1,0 +1,13 @@
+{
+  "name": "my_note_taker",
+  "version": "1.0.0",
+  "description": "A basic MERN stack project\r Link: https://www.youtube.com/watch?v=F9gB5b4jgOI",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "npm run start --prefix backend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
