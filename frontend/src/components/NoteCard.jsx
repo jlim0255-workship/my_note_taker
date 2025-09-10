@@ -6,12 +6,16 @@ import toast from "react-hot-toast";
 
 const NoteCard = ({ note, setNotes }) => {
   const handleDelete = async (e, id) => {
-    e.preventDefault(); // get rid of the navigation behaviour
+    e.preventDefault(); // get rid of the navigation behaviour 
+    // (the entire thing is a link, that will navigate us to note detail page intially)    
 
     if (!window.confirm("Are you sure you want to delete this note?")) return;
 
     try {
+      // call the api backend to delete from data base, based on this id
       await api.delete(`/notes/${id}`);
+
+      // filter out those already deleted notes based on the delete id
       setNotes((prev) => prev.filter((note) => note._id !== id)); // get rid of the deleted one
       toast.success("Note deleted successfully");
     } catch (error) {
