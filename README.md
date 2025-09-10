@@ -3,6 +3,32 @@
 A basic MERN stack project
 Link: https://www.youtube.com/watch?v=F9gB5b4jgOI 
 
+Overview:
+The web app support CRUD (Create, Retrieve, Update, Delete) operations on note. Although we have a better way taking notes through different tools (smartphones mostly), this project serves as a introduction to full stack development, where they don't include or teach in my academic years (until Q3 2025). Takes about 4 days to complete, but will revise the methods, the patterns implemented here when doing future projects.
+
+First deployed app!
+I used the free version package from render.com. 
+if the site gets inactive in 15 minutes, the server goes down, and the next visit takes some time :(
+
+Tech stack:
+MERN:
+    (MongoDB, Express, React, Node)
+
+Other packages and lib resources:
+    -react-hot-toast: for cool toast effect
+    -upstash/redis : for rate limiting
+    -react lucide: ready UI
+    -mongoose: for database schema
+    -axios/express: for backend requests
+    -postman: external tool for backend testing
+    -render: free web app hoisting and deployment
+
+Conclusion:
+A bit exhaustive for my first web app done and deployed in such short time, try to make it better in the future!
+Its a break through for me, # no more local host
+
+Contribution Backlog:
+
 D1: 11:32pm log out -> 13:23
 
 D2: 9:34am
@@ -43,4 +69,6 @@ CORS thing: 2:13
 front end getting stuff from back end
 
 Stop at create page 2:32:15
-Day 2 log out 11:25pm
+Day 3 log out 11:25pm
+
+Day 4 start: 2:22pm last dev commit
