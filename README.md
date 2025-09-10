@@ -27,6 +27,9 @@ Conclusion:
 A bit exhaustive for my first web app done and deployed in such short time, try to make it better in the future!
 Its a break through for me, # no more local host
 
+The site itself: https://my-note-taker-sz6b.onrender.com/ 
+Come and leave a note!
+
 Contribution Backlog:
 
 D1: 11:32pm log out -> 13:23
