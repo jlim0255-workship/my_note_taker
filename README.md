@@ -1,7 +1,8 @@
 # my_note_taker
 
 A basic MERN stack project
-Link: https://www.youtube.com/watch?v=F9gB5b4jgOI 
+The deployed site itself: https://my-note-taker-sz6b.onrender.com/ 
+Come and leave a note!
 
 Overview:
 The web app support CRUD (Create, Retrieve, Update, Delete) operations on note. Although we have a better way taking notes through different tools (smartphones mostly), this project serves as a introduction to full stack development, where they don't include or teach in my academic years (until Q3 2025). Takes about 4 days to complete, but will revise the methods, the patterns implemented here when doing future projects.
@@ -27,8 +28,8 @@ Conclusion:
 A bit exhaustive for my first web app done and deployed in such short time, try to make it better in the future!
 Its a break through for me, # no more local host
 
-The site itself: https://my-note-taker-sz6b.onrender.com/ 
-Come and leave a note!
+Referenced resources
+YT Link: https://www.youtube.com/watch?v=F9gB5b4jgOI 
 
 Contribution Backlog:
 
