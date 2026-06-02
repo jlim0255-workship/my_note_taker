@@ -43,13 +43,12 @@ async function initDB() {
 // only do this in development
 if (process.env.NODE_ENV !== "production"){
     app.use(cors({
-    // origin: "http://localhost:5173",
-    origin: '*',
+    origin: "http://localhost:5173",
 
     })) // allow request from 
 }
 
-// app.use(rateLimiter); //middleware to rate limit
+app.use(rateLimiter); //middleware to rate limit
 app.use("/api/notes", notesRoutes);// middleware to call controllers in endpoints
 
 // modified: connect the DB first, then listen to the server

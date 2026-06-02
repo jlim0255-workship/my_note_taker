@@ -11,7 +11,7 @@ const ratelimit = new Ratelimit({
     redis: Redis.fromEnv(),
 
     // limit each ip to 100 requests per 60 seconds
-    limiter: Ratelimit.slidingWindow(100, "60 s")
+    limiter: Ratelimit.slidingWindow(20, "60 s")
 })
 
 export default ratelimit;
