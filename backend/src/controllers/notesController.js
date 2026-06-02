@@ -6,12 +6,16 @@
 
 // 2) the normal function way
 import Note from "../models/Note.js"
+import {sql} from "../config/db.js"
 
 
 // RETRIEVE ALL NOTES
 export async function getAllNotes(req, res) {
     try{
-        const notes = await Note.find().sort({createdAt: -1}) // .-1 newest first, 1 older first
+        // const notes = await Note.find().sort({createdAt: -1}) // .-1 newest first, 1 older first
+        // res.status(200).json(notes)
+
+        const notes = await sql`SELECT * FROM notes ORDER BY created_at DESC`
         res.status(200).json(notes)
 
     }catch(error){
@@ -26,9 +30,15 @@ export async function getAllNotes(req, res) {
 export async function getNoteById(req, res) {
     // get id from the URL if there is
     try{
-        const note = await Note.findById(req.params.id)
-        if (!note) return res.status(404).json({message: "Note not found"})            
-        res.status(200).json(note)
+        // const note = await Note.findById(req.params.id)
+        // if (!note) return res.status(404).json({message: "Note not found"})            
+        // res.status(200).json(note)
+
+        const note = await sql`SELECT * FROM notes WHERE id = ${req.params.id}`
+
+        if (note.length === 0) return res.status(404).json({message: "Note not found"})
+
+        res.status(200).json({data: note[0], message: "Note fetched successfully!"})
 
     }catch(error){
         console.log("Error in getNoteById controller", error)
@@ -55,9 +65,13 @@ export async function createNote(req, res) {
         
         // another way of putting content in the newly created note
         // with better clarity
-        const note = new Note({title, content})
-        const savedNote = await note.save()
-        res.status(201).json(savedNote)
+        // const note = new Note({title, content})
+        // const savedNote = await note.save()
+        // res.status(201).json(savedNote)
+
+        const newNote = await sql`INSERT INTO notes (title, content) VALUES (${title}, ${content}) RETURNING *`
+        res.status(201).json({data: newNote[0], message: "Note created successfully!"})
+
     } catch(error){
         console.log("Error in createNote controller", error)
         res.status(500).json({message: "Internal server error"})
@@ -78,13 +92,17 @@ export async function updateNote(req, res){
         // await Note.findByIdAndUpdate(req.params.id, {title, content})
 
         // better way
-        const updatedNote = await Note.findByIdAndUpdate(req.params.id, {title, content})
+        // const updatedNote = await Note.findByIdAndUpdate(req.params.id, {title, content})
         
-        // leave message if note not found
-        if (!updatedNote) return res.status(404).json({message:"Note not found!"})
+        // // leave message if note not found
+        // if (!updatedNote) return res.status(404).json({message:"Note not found!"})
         
-        // leave successful message
-        res.status(200).json({message: "Note updated successfully"})
+        // // leave successful message
+        // res.status(200).json({message: "Note updated successfully"})
+
+        const updatedNote = await sql`UPDATE notes SET title = ${title}, content = ${content} WHERE id = ${req.params.id} RETURNING *`
+        if (updatedNote.length === 0) return res.status(404).json({message: "Note not found!"})
+        res.status(200).json({ data: updatedNote[0], message: "Note updated successfully" })
 
     }catch(error){
         console.log("Error in updateNote controller", error)
@@ -96,14 +114,18 @@ export async function updateNote(req, res){
 export async function deleteNote(req, res){
     // res.status(200).json({message: "Note deleted successfully!"})
     try{
-        // only need the note id to delete that note        
-        const updatedNote = await Note.findByIdAndDelete(req.params.id)
+        // // only need the note id to delete that note        
+        // const updatedNote = await Note.findByIdAndDelete(req.params.id)
         
-        // leave message if note not found
-        if (!updatedNote) return res.status(404).json({message:"Note not found!"})
+        // // leave message if note not found
+        // if (!updatedNote) return res.status(404).json({message:"Note not found!"})
         
-        // leave successful message
-        res.status(200).json({message: "Note deleted successfully"})
+        // // leave successful message
+        // res.status(200).json({message: "Note deleted successfully"})
+
+        const deletedNote = await sql`DELETE FROM notes WHERE id = ${req.params.id} RETURNING *`
+        if (deletedNote.length === 0) return res.status(404).json({message: "Note not found!"})
+        res.status(200).json({ data: deletedNote[0], message: "Note deleted successfully" })
 
     }catch(error){
         console.log("Error in deleteNote controller", error)
