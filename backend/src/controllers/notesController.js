@@ -56,7 +56,7 @@ export async function createNote(req, res) {
         // another way of putting content in the newly created note
         // with better clarity
         const note = new Note({title, content})
-        const savedNote = await note.save()        
+        const savedNote = await note.save()
         res.status(201).json(savedNote)
     } catch(error){
         console.log("Error in createNote controller", error)

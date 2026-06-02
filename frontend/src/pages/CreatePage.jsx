@@ -8,14 +8,17 @@ import api from '../lib/axios';
 // 2: 34:35
 const CreatePage = () => {
   // create states (changing things) for user
+  // useState is a hook that allows us to manage state in functional components
+  // title, content, loading are the states, setTitle, setContent, and setLoading are the functions to update the states
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
   const [loading, setLoading] = useState(false)
 
-  const navigate = useNavigate()
+  const navigate = useNavigate() // built-in hook to navigate programmatically
 
 
 
+  // handle submission of the form
   // get the event (e)
   const handleSubmit = async (e) => {
     // prevent the values refresh and gone

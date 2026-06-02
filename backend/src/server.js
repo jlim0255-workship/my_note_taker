@@ -34,6 +34,7 @@ app.use(rateLimiter); //middleware to rate limit
 app.use("/api/notes", notesRoutes);// middleware to call controllers in endpoints
 
 // only do this in production
+// serve the frontend and backend from the same server
 if (process.env.NODE_ENV === "production"){
     // serve the optimized react app (frontend dist) as a static assest
     // go one layer up to frontend to get dist
