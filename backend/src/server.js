@@ -9,6 +9,9 @@ import dotenv from "dotenv";
 import rateLimiter from "./middleware/rateLimiter.js";
 import cors from "cors"
 import path from "path"
+import {sql} from "./config/db.js"
+import morgan from "morgan"
+import helmet from "helmet"
 
 
 // comnfig the whole .env file
@@ -17,40 +20,39 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 5001
 
-// create a variable (source of backend)
-const __dirname = path.resolve()
+app.use(morgan("dev"))
+app.use(helmet())
+app.use(express.json())
+
+async function initDB() {
+    try {
+        await sql`CREATE TABLE IF NOT EXISTS notes (
+            id SERIAL PRIMARY KEY,
+            title VARCHAR(255) NOT NULL,
+            content TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )`
+        console.log("Database initialized successfully!")
+        
+    } catch (error) {
+        console.error("Error initializing database:", error)
+    }
+}
 
 //middleware
 // only do this in development
-if (process.env.NODE_ENV !== "production"){
-    app.use(cors({
-    origin: "http://localhost:5173",
-    })) // allow request from UI
-}
-
+// if (process.env.NODE_ENV !== "production"){
+//     app.use(cors({
+//     origin: "http://localhost:5173",
+//     })) // allow request from UI
+// }
 
 app.use(express.json()); //middleware to parse req.body
 app.use(rateLimiter); //middleware to rate limit
 app.use("/api/notes", notesRoutes);// middleware to call controllers in endpoints
 
-// only do this in production
-// serve the frontend and backend from the same server
-if (process.env.NODE_ENV === "production"){
-    // serve the optimized react app (frontend dist) as a static assest
-    // go one layer up to frontend to get dist
-    // make the front end alive and built
-    app.use(express.static(path.join(__dirname, "../frontend/dist")))
-
-
-    // when they visit any route, just give the respective route in front end view
-    app.get("*", (req, res) =>{
-        res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"))
-    })
-}
-
-
 // modified: connect the DB first, then listen to the server
-connectDB().then( () => {app.listen(PORT, () => {
+initDB().then( () => {app.listen(PORT, () => {
     console.log("server started on PORT:", PORT);
     })
 })
