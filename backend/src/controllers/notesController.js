@@ -8,6 +8,7 @@
 import Note from "../models/Note.js" // todo: can remove this, no longer using the model and mongodb
 import {sql} from "../config/db.js"
 import {indexNote} from "../services/noteIndexer.js"
+import {generateTitle} from "../services/titling.js"
 
 
 // RETRIEVE ALL NOTES
@@ -91,4 +92,44 @@ export async function deleteNote(req, res){
         console.log("Error in deleteNote controller", error)
         res.status(500).json({message: "Internal server error"})
     }
+}
+
+// IMPORT NOTES FROM EXTERNAL SOURCE (e.g. CSV, PDF, etc.)
+
+export async function importNote(req, res) {
+  try {
+    const { filename, content } = req.body;
+
+    if (!content?.trim()) {
+      return res.status(400).json({ error: "file is empty" });
+    }
+
+    const contentHash = Buffer.from(content.trim()).toString("base64").slice(0, 64);
+
+    const existing = await sql`
+      SELECT id FROM notes WHERE content_hash = ${contentHash}
+    `;
+
+    if (existing.length > 0) {
+      return res.status(409).json({ error: "note already imported", id: existing[0].id });
+    }
+
+    const generatedTitle = await generateTitle(content);
+    const title = generatedTitle
+      ?? (filename ? filename.replace(/\.(txt|md)$/i, "").trim() : "imported note");
+
+    const result = await sql`
+      INSERT INTO notes (title, content, source, content_hash)
+      VALUES (${title}, ${content.trim()}, 'upload', ${contentHash})
+      RETURNING *
+    `;
+
+    const note = result[0];
+    res.status(201).json(note);
+
+    indexNote(note.id, `${note.title} ${note.content}`);
+  } catch (err) {
+    console.error("importNote error:", err.message);
+    res.status(500).json({ error: "failed to import note" });
+  }
 }
