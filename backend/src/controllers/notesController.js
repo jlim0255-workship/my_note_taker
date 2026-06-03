@@ -5,7 +5,7 @@
 // }
 
 // 2) the normal function way
-import Note from "../models/Note.js"
+import Note from "../models/Note.js" // todo: can remove this, no longer using the model and mongodb
 import {sql} from "../config/db.js"
 import {indexNote} from "../services/noteIndexer.js"
 
