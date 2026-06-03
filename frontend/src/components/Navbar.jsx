@@ -11,6 +11,10 @@ const Navbar = () => {
                     Thinkboard
                 </h1>
 
+                <Link to={"/graph"} className="btn btn-ghost">
+                    <span>Graph View</span>
+                </Link>
+
                 <div className='flex items-center gap-4'>
                     <Link to={"/create"} className="btn btn-primary">
                     <PlusIcon className='h-5 w-5'/>
