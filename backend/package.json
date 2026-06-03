@@ -23,7 +23,9 @@
     "helmet": "^8.2.0",
     "mongoose": "^8.14.3",
     "morgan": "^1.10.1",
-    "my_note_taker": "file:.."
+    "my_note_taker": "file:..",
+    "ollama": "^0.6.3",
+    "openai": "^6.41.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
