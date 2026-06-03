@@ -6,11 +6,14 @@ import toast from "react-hot-toast"
 import api from "../lib/axios";
 import NotesNotFound from '../components/NotesNotFound'
 import NoteCard from '../components/NoteCard'
+import FileDropZone from '../components/FileDropZone'
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const [isRateLimited, setIsRateLimited] = useState(false);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -38,6 +41,7 @@ const HomePage = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
+      <FileDropZone onImported={note => navigate(`/note/${note.id}`)} />
 
       {isRateLimited && <RateLimitedUI />}
 
